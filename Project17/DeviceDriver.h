@@ -11,4 +11,5 @@ public:
 protected:
     FlashMemoryDevice* m_hardware;
     int MaxReadCount = 5;
+    int Erased = 0xFF;
 };

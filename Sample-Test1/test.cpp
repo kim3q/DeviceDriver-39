@@ -34,3 +34,23 @@ TEST(TESTCaseName, ReadExceptionTest1)
 	DeviceDriver driver(&mock_device);
 	EXPECT_THROW(driver.read(0x2),exception);
 }
+
+TEST(TestCaseName, WriteSuccessTest1)
+{
+	MockDevice mock_device;
+	EXPECT_CALL(mock_device, write(0x1, 0xAA));
+	EXPECT_CALL(mock_device, read(0x1)).Times(6).WillRepeatedly(Return(0xAA));
+
+	DeviceDriver driver(&mock_device);
+	driver.write(0x1, 0xAA);
+	EXPECT_THAT(driver.read(0x1), Eq(0xAA));
+}
+
+TEST(TestCaseName, WriteExceptionTest1)
+{
+	MockDevice mock_device;
+	EXPECT_CALL(mock_device, read(0x2)).WillRepeatedly(Return(0xFF));
+	
+	DeviceDriver driver(&mock_device);
+	EXPECT_THROW(driver.write(0x2, 0xAA), exception);
+}
