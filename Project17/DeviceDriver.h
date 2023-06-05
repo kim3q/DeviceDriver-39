@@ -10,4 +10,5 @@ public:
 
 protected:
     FlashMemoryDevice* m_hardware;
+    int MaxReadCount = 5;
 };
